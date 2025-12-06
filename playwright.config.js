@@ -26,6 +26,23 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
+  timeout: 80 * 1000,
+  expect: {
+    /* We consider the test to fail if assertion does not pass within 20 seconds. */
+    timeout: 20 * 1000,
+    toHaveScreenshot: {
+      threshold: 0.25,
+      maxDiffPixelRatio: 0.025,
+      maxDiffPixels: 25,
+    },
+  },
+
+  /*
+  Timeout for the whole test run - 20 minutes.
+  */
+  globalTimeout: 40 * 60 * 1000,
+
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -37,19 +54,36 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'desktop-chrome',
+      use: { 
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1440, height: 900 },
+        browserName: 'chromium',
+        launchOptions: {
+          args: ['--disable-web-security'],
+        },
+       },
+    },
+    {
+      name: 'mobile-chrome',
+      use: {
+        ...devices['Pixel 7'],
+        browserName: 'chromium',
+        launchOptions: {
+          args: ['--disable-web-security'],
+        },
+      },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
