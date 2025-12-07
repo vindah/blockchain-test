@@ -1,18 +1,22 @@
 name: Playwright Tests
+
 on:
-  push: {}
-  pull_request: {}
+  push:
+  pull_request:
 
 jobs:
   api-tests:
     name: API Tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Cache npm
         uses: actions/cache@v4
         with:
@@ -20,20 +24,19 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm ci
-      - name: Set UI_URL and API_URL (vars -> secrets fallback)
-        run: |
-          UI_URL="${{ vars.UI_URL }}"
-          if [ -z "$UI_URL" ]; then UI_URL="${{ secrets.UI_URL }}"; fi
-          API_URL="${{ vars.API_URL }}"
-          if [ -z "$API_URL" ]; then API_URL="${{ secrets.API_URL }}"; fi
-          echo "UI_URL=$UI_URL" >> $GITHUB_ENV
-          echo "API_URL=$API_URL" >> $GITHUB_ENV
+
       - name: Run API Playwright tests
+        env:
+          UI_URL:  ${{ secrets.UI_URL }}
+          API_URL: ${{ secrets.API_URL }}
         run: npx playwright test tests/api-tests --reporter=list
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload Playwright report
         if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
         with:
           name: api-playwright-report
           path: playwright-report/
