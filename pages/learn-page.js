@@ -1,7 +1,9 @@
 import { expect } from '@playwright/test';
+import { BasePage } from '../base/base-page.js';
 
-export class LearnPage {
+export class LearnPage extends BasePage {
   constructor(page) {
+    super(page);
     this.recentPostHeaderText = page.getByText('Recent Posts');
     this.joinDiscordBtn = page.getByRole('link', { name: 'Join our Discord to learn' });
     this.partnershipsSection = page.locator('#Partnerships');

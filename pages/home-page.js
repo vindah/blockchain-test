@@ -1,7 +1,9 @@
 import { expect } from '@playwright/test';
+import { BasePage } from '../base/base-page.js';
 
-export class HomePage {
+export class HomePage extends BasePage {
   constructor(page) {
+    super(page);
     this.jumperLogo = page.locator('#jumper-logo');
     this.exchangeBox = page.getByText('ExchangeFromSelect chain and');
     this.connectBtn = page.getByRole('button', { name: 'Connect', exact: true });

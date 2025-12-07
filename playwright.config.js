@@ -1,14 +1,8 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import { config } from 'dotenv';
+import dotenv from 'dotenv';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config();
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -44,8 +38,8 @@ export default defineConfig({
   globalTimeout: 40 * 60 * 1000,
 
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    /* the default is data-qa */
+    testIdAttribute:  'data-testid',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -113,4 +107,9 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
+
+export const {
+  UI_URL,
+  API_URL,
+} = process.env;
 
