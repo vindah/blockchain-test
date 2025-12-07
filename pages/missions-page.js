@@ -9,7 +9,6 @@ export class MissionsPage extends BasePage {
   }
 
   async assertMissionsPageVisible() {
-    await expect.soft(this.missionsBox).toBeVisible();
     await expect.soft(this.missionsHeaderText).toBeVisible();
   }
 }

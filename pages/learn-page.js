@@ -12,16 +12,12 @@ export class LearnPage extends BasePage {
     this.knowledgeSection = page.locator('#Knowledge');
   }
 
-  async assertJumperLearnPageVisible() {
+  async assertLearnPageVisible() {
     await expect.soft(this.recentPostHeaderText).toBeVisible();
     await expect.soft(this.joinDiscordBtn).toBeVisible();
     await expect.soft(this.partnershipsSection).toBeVisible();
     await expect.soft(this.tutorialsSection).toBeVisible();
     await expect.soft(this.announcementsSection).toBeVisible();
     await expect.soft(this.knowledgeSection).toBeVisible();
-  }
-
-  async clickOnMenuBtn() {
-    await this.mainMenu.click();
   }
 }

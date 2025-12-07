@@ -8,10 +8,10 @@ const test = base.extend({
   homePage: async ({ page }, use) => {
     await use(new HomePage(page));
   },
-    learnPage: async ({ page }, use) => {
+  learnPage: async ({ page }, use) => {
     await use(new LearnPage(page));
   },
-    missionsPage: async ({ page }, use) => {
+  missionsPage: async ({ page }, use) => {
     await use(new MissionsPage(page));
   },
 });

@@ -10,7 +10,7 @@ export class HomePage extends BasePage {
     this.mainMenu = page.getByRole('button', { name: 'Main Menu' });
     this.connectWalletBtn = page.getByRole('button', { name: 'Connect wallet' });
     this.missionsMenuBtn = page.getByTestId('navbar-missions-button');
-    this.exchangeMenuBtn = page.getByRole('link', { name: 'Exchange' });
+    this.exchangeMenuBtn = page.getByTestId('navbar-exchange-button');
     
     this.mainMenuOptions = {
         learnMenuText: page.getByRole('link', { name: 'Learn' }),
