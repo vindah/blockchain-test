@@ -42,4 +42,13 @@ export class HomePage extends BasePage {
     await this.clickOnMenuBtn();
     await this.mainMenuOptions.learnMenuText.click();
   }
+
+  async navigateToDiscordPageAndValidate() {
+    await this.clickOnMenuBtn();
+    const discordTab = await this.getNewTabAfterClick(
+      () => this.mainMenuOptions.discordLinkIcon.click()
+    );
+    
+    expect.soft(discordTab.url()).toContain('discord.com');
+  }
 }

@@ -17,4 +17,8 @@ test.describe('Jumper Exchange Tests', () => {
     await homePage.navigateToLearnPage();
     await learnPage.assertLearnPageVisible();
   });
+
+  test('validate that user can navigate to discord successfully', async ({ homePage }) => {
+    await homePage.navigateToDiscordPageAndValidate();
+  });
 });
