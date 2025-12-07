@@ -11,6 +11,7 @@ export class HomePage extends BasePage {
     this.connectWalletBtn = page.getByRole('button', { name: 'Connect wallet' });
     this.missionsMenuBtn = page.getByTestId('navbar-missions-button');
     this.exchangeMenuBtn = page.getByTestId('navbar-exchange-button');
+    this.getStartedBtn = page.getByRole('button', { name: 'Open welcome screen' })
     
     this.mainMenuOptions = {
         learnMenuText: page.getByRole('link', { name: 'Learn' }),
@@ -20,6 +21,16 @@ export class HomePage extends BasePage {
         discordLinkIcon: page.getByRole('link', { name: 'Discord social link' }),
         telegramLinkIcon: page.getByRole('link', { name: 'Telegram social link' }),
     };
+
+    this.addWalletModal = {
+        headerText: page.getByText('Select a wallet'),
+        walletModal: page.locator('#widget-wallet-modal-content'),
+        walletCards: page.locator('div[class*="MuiPaper-elevation1 MuiCard-root mui-udv5zg"]'),
+        metaMaskDesktopTab: page.getByText('Desktop'),
+    };
+    this.metaMaskGetStartedBtn = this.addWalletModal.walletCards
+    .filter({ hasText: 'MetaMask' })
+    .getByText('Get Started');
 
   }
 
@@ -38,6 +49,10 @@ export class HomePage extends BasePage {
     await this.connectWalletBtn.click();
   }
 
+  async getWalletCardCount() {
+    return await this.addWalletModal.walletCards.count();
+  }
+
   async navigateToLearnPage() {
     await this.clickOnMenuBtn();
     await this.mainMenuOptions.learnMenuText.click();
@@ -50,5 +65,21 @@ export class HomePage extends BasePage {
     );
     
     expect.soft(discordTab.url()).toContain('discord.com');
+  }
+
+  async checkAllWalletsVisible() {
+    const expectedNames = [
+        'Abstract',
+        'WalletConnect',
+        'MetaMask',
+        'Coinbase Wallet',
+        'Base Account',
+        'Porto'
+    ];
+    const walletCount = await this.getWalletCardCount();
+    for (let i = 0; i < walletCount; i++) {
+      await expect.soft(this.addWalletModal.walletCards.nth(i)).toBeVisible();
+      await expect.soft(this.addWalletModal.walletCards.nth(i)).toContainText(expectedNames[i]);
+    }
   }
 }
