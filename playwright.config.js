@@ -56,6 +56,7 @@ export default defineConfig({
         launchOptions: {
           args: ['--disable-web-security'],
         },
+        DEVICE_TYPE: 'desktop',
        },
     },
     {
@@ -66,6 +67,7 @@ export default defineConfig({
         launchOptions: {
           args: ['--disable-web-security'],
         },
+        DEVICE_TYPE: 'mobile',
       },
     },
 

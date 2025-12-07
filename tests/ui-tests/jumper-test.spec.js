@@ -1,5 +1,6 @@
 import { expect, test } from '../../base/fixture.js';
 import { UI_URL } from '../../playwright.config.js';
+import { isMobile } from '../../utils/device-helper.js';
 
 test.describe('Jumper Exchange Tests', () => {
 
@@ -8,8 +9,12 @@ test.describe('Jumper Exchange Tests', () => {
     await homePage.assertJumperHomepageVisible();
   });
 
-  test('validate that user can switch to missions tab', async ({ homePage, missionsPage }) => {
-    await homePage.missionsMenuBtn.click();
+  test('validate that user can switch to missions tab', async ({ homePage, missionsPage }, testInfo) => {
+    const missionsMenuBtn = homePage.getMissionsMenuBtn(testInfo);
+    if (isMobile(testInfo)) {
+      await homePage.clickOnMenuBtn();
+    }
+    await missionsMenuBtn.click();
     await missionsPage.assertMissionsPageVisible();
   });
 
@@ -22,11 +27,14 @@ test.describe('Jumper Exchange Tests', () => {
     await homePage.navigateToDiscordPageAndValidate();
   });
 
-  test('validate that user can connect wallet', async ({ homePage }) => {
+  test('validate that user can connect wallet', async ({ homePage }, testInfo) => {
+    if (isMobile(testInfo)) {
+      await test.skip();
+    }
     await homePage.getStartedBtn.click();
     await homePage.clickOnConnectWalletBtn();
     await homePage.checkAllWalletsVisible();
     await homePage.metaMaskGetStartedBtn.click();
     await homePage.addWalletModal.metaMaskDesktopTab.click();
-  }); 
+  });
 });

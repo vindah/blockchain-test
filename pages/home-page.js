@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../base/base-page.js';
+import { isMobile } from '../utils/device-helper.js';
 
 export class HomePage extends BasePage {
   constructor(page) {
@@ -9,7 +10,6 @@ export class HomePage extends BasePage {
     this.connectBtn = page.getByRole('button', { name: 'Connect', exact: true });
     this.mainMenu = page.getByRole('button', { name: 'Main Menu' });
     this.connectWalletBtn = page.getByRole('button', { name: 'Connect wallet' });
-    this.missionsMenuBtn = page.getByTestId('navbar-missions-button');
     this.exchangeMenuBtn = page.getByTestId('navbar-exchange-button');
     this.getStartedBtn = page.getByRole('button', { name: 'Open welcome screen' })
     
@@ -32,6 +32,12 @@ export class HomePage extends BasePage {
     .filter({ hasText: 'MetaMask' })
     .getByText('Get Started');
 
+  }
+
+  getMissionsMenuBtn(testInfo) {
+    return isMobile(testInfo)
+        ? this.page.getByRole('link', { name: 'Missions' })
+        : this.page.getByTestId('navbar-missions-button');
   }
 
   async assertJumperHomepageVisible() {
