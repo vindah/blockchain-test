@@ -70,6 +70,13 @@ export default defineConfig({
         DEVICE_TYPE: 'mobile',
       },
     },
+    {
+      name: 'api',
+      testDir: 'tests/api-tests',
+      use: {
+        headless: true,
+      },
+    },
 
     // {
     //   name: 'firefox',

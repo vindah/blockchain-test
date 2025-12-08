@@ -32,7 +32,7 @@ jobs:
         env:
           UI_URL:  ${{ secrets.UI_URL }}
           API_URL: ${{ secrets.API_URL }}
-        run: npx playwright test tests/api-tests --reporter=list
+        run: npx playwright test --project=api --reporter=list
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
