@@ -73,7 +73,9 @@ jobs:
           HEADLESS: 'true'
           METAMASK_SEED_PHRASE: ${{ secrets.METAMASK_SEED_PHRASE }}
           METAMASK_PASSWORD: ${{ secrets.METAMASK_PASSWORD }}
-        run: npx synpress setup
+        run: |
+          npx playwright install
+          npx synpress setup
 
 
       - name: Run UI Playwright tests
