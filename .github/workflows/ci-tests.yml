@@ -70,10 +70,10 @@ jobs:
 
       - name: Build MetaMask wallet cache (Synpress)
         env:
-          HEADLESS: 'true'
           METAMASK_SEED_PHRASE: ${{ secrets.METAMASK_SEED_PHRASE }}
           METAMASK_PASSWORD: ${{ secrets.METAMASK_PASSWORD }}
-        run: npx synpress setup
+        run: | 
+          xvfb-run -a npx synpress setup
 
 
       - name: Run UI Playwright tests
