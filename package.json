@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "1.54",
+    "@playwright/test": "1.48.2",
     "@synthetixio/synpress": "^4.1.1",
     "@types/node": "^24.10.1",
     "dotenv": "^17.2.3",
