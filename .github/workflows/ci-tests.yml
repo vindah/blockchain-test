@@ -82,7 +82,8 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           METAMASK_SEED_PHRASE: ${{ secrets.METAMASK_SEED_PHRASE }}
           METAMASK_PASSWORD: ${{ secrets.METAMASK_PASSWORD }}
-        run: npx playwright test tests/ui-tests --reporter=html
+        run: |
+          xvfb-run -a npx playwright test tests/ui-tests --reporter=html
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
