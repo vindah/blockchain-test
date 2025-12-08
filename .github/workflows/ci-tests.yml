@@ -68,10 +68,20 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Build MetaMask wallet cache (Synpress)
+        env:
+          HEADLESS: 'true'
+          METAMASK_SEED_PHRASE: ${{ secrets.METAMASK_SEED_PHRASE }}
+          METAMASK_PASSWORD: ${{ secrets.METAMASK_PASSWORD }}
+        run: npx synpress setup
+
+
       - name: Run UI Playwright tests
         env:
           UI_URL: ${{ secrets.UI_URL }}
           API_URL: ${{ secrets.API_URL }}
+          METAMASK_SEED_PHRASE: ${{ secrets.METAMASK_SEED_PHRASE }}
+          METAMASK_PASSWORD: ${{ secrets.METAMASK_PASSWORD }}
         run: npx playwright test tests/ui-tests --reporter=html
 
       - name: Upload Playwright report

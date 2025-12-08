@@ -27,14 +27,16 @@ test.describe('Jumper Exchange Tests', () => {
     await homePage.navigateToDiscordPageAndValidate();
   });
 
-  test('validate that user can connect wallet', async ({ homePage }, testInfo) => {
+  test('validate that user can connect wallet', async ({ homePage, metamask }, testInfo) => {
     if (isMobile(testInfo)) {
       await test.skip();
     }
     await homePage.getStartedBtn.click();
     await homePage.clickOnConnectWalletBtn();
     await homePage.checkAllWalletsVisible();
-    await homePage.metaMaskGetStartedBtn.click();
-    await homePage.addWalletModal.metaMaskDesktopTab.click();
+    await homePage.metaMaskInstalledBtn.click();
+    await metamask.connectToDapp();
+    await expect.soft(homePage.connectedWalletAddress).toBeVisible();
+    await expect.soft(homePage.connectedWalletAddress).toContainText('218f2');
   });
 });

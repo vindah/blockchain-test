@@ -11,7 +11,8 @@ export class HomePage extends BasePage {
     this.mainMenu = page.getByRole('button', { name: 'Main Menu' });
     this.connectWalletBtn = page.getByRole('button', { name: 'Connect wallet' });
     this.exchangeMenuBtn = page.getByTestId('navbar-exchange-button');
-    this.getStartedBtn = page.getByRole('button', { name: 'Open welcome screen' })
+    this.getStartedBtn = page.getByRole('button', { name: 'Open welcome screen' });
+    this.connectedWalletAddress = page.getByRole('button', { name: 'wallet-avatar chain-avatar' });
     
     this.mainMenuOptions = {
         learnMenuText: page.getByRole('link', { name: 'Learn' }),
@@ -31,6 +32,9 @@ export class HomePage extends BasePage {
     this.metaMaskGetStartedBtn = this.addWalletModal.walletCards
     .filter({ hasText: 'MetaMask' })
     .getByText('Get Started');
+    this.metaMaskInstalledBtn = this.addWalletModal.walletCards
+    .filter({ hasText: 'MetaMask' })
+    .getByText('Installed');
 
   }
 
@@ -75,9 +79,9 @@ export class HomePage extends BasePage {
 
   async checkAllWalletsVisible() {
     const expectedNames = [
+        'MetaMask',
         'Abstract',
         'WalletConnect',
-        'MetaMask',
         'Coinbase Wallet',
         'Base Account',
         'Porto'
