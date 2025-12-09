@@ -40,7 +40,7 @@ export const bridgeExchangeByStringKey = [
   },
 ];
 
-// simple negative/invalid chain
+// Invalid chain
 export const bridgeExchangeInvalidCases = [
   {
     name: 'INVALID CHAIN (integer)',
